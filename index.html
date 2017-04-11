@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Neighborhood Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
+
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Neighborhood Map</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 100%;
+        display:block;
+        position:absolute;
+        width: 75%;
+        bottom:0;
+        top:0;
+        right:0;
+        margin-top:52px; /* used for the top navigation bar 
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -19,7 +32,32 @@
     </style>
   </head>
   <body>
-    <div id="map"></div>
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <div class="navbar-brand">
+            Neighborhood Map
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="input-group" style="pull: left; width: 80%">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Filter</button>
+            </span>
+            <input type="text" class="form-control" placeholder="Search for...">
+          </div><!-- /input-group -->
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9" id="map"></div>
+
+    
     <script>
       var map;
       function initMap() {
@@ -29,6 +67,14 @@
         });
       }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATH4BTum9CauafoXQm99jAyBwm-RA9L9c&v=3&callback=initMap"></script>
+    <script async defer 
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATH4BTum9CauafoXQm99jAyBwm-RA9L9c&v=3&callback=initMap"></script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
   </body>
 </html>
