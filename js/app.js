@@ -16,7 +16,7 @@ function initMap() {
     zoom: 12
   });
   var geocoder = new google.maps.Geocoder();
-
+  var markers = [];
   function geocodeAddress(geocoder, resultsMap, address) {
     geocoder.geocode({
       'address': address
@@ -26,12 +26,23 @@ function initMap() {
         var marker = new google.maps.Marker({
           map: resultsMap,
           position: results[0].geometry.location
-        });
+        });   
+
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
     });
+
+    function toggleBounce() {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    }
   }
+
+
   Object.keys(locations).forEach(function(key) {
     console.log(key, locations[key]);
     geocodeAddress(geocoder, map, locations[key]);
