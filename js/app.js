@@ -54,13 +54,14 @@ var ViewModel = function() {
 
   var self = this;
   self.restaurants = ko.observableArray(model.restaurants);
-
-  self.appName = ko.observable("App Name");
+  self.filteredRestaurants = self.restaurants;
 
   console.log("self.restaurants = ");
   console.log(self.restaurants());
 
-
+  this.searchRestaurants = function() {
+    
+  }
 
 };
   
