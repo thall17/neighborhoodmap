@@ -68,7 +68,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">LA Metro Stops</a>
+                <a class="navbar-brand" href="index.html" data-bind="text: appName"></a>
             </div>
             <!-- /.navbar-header -->
 
@@ -87,7 +87,12 @@
                             </div>
                             <!-- /input-group -->
                         </li>
-                        <li>
+                    </ul>
+                    <ul class="nav" data-bind="foreach: restaurants">
+                        <li data-bind="text: name">
+                            <a href="#"></i> Dashboard</a>
+                        </li>
+                        <!-- <li>
                             <a href="#"></i> Dashboard</a>
                         </li>
                         <li>
@@ -95,7 +100,7 @@
                         </li>
                         <li>
                             <a href="#"> Forms</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

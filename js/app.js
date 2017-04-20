@@ -36,10 +36,28 @@ var model = {
   ]
 };
 
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {
+      lat: 34.0736,
+      lng: -118.4004
+    },
+    zoom: 12
+  });
+};
+
+
+
 
 // VIEWMODEL
 var ViewModel = function() {
-  };
+  var self = this;
+  self.restaurants = ko.observableArray([model.restaurants]);
 
+  self.appName = ko.observable("App Name");
+
+  console.log("self.restaurants = ");
+  console.log(self.restaurants());
+};
   
 ko.applyBindings(new ViewModel());
