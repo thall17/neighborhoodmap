@@ -1,6 +1,6 @@
 // Initialize map and infoWindow
 var map;
-var markers = [];
+var observableMarkersArray = ko.observableArray(); 
 
 // MODEL
 var model = {
@@ -64,10 +64,17 @@ function initMap() {
       visible: true
     });
 
-    markers.push(marker);
+    observableMarkersArray().push(marker);
+    // marker.setMap(null);
 
   }
-  console.log("markers.length = " + markers.length);
+
+  for (var i = 0; i < observableMarkersArray().length; i++){
+    observableMarkersArray()[i].setMap(map);
+  }
+
+
+  console.log("observableMarkersArray().length = " + observableMarkersArray().length);
   
 };
 
@@ -77,20 +84,14 @@ function initMap() {
 // VIEWMODEL
 var ViewModel = function() {
 
-
-
   var self = this;
-
-  
 
   console.log("model.restaurants.length = " + model.restaurants.length);
   self.restaurants = ko.observableArray(model.restaurants);
-  self.markers = ko.observableArray(markers);
+  // self.markers = ko.observableArray(markers);
 
   console.log("self.restaurants().length = " + self.restaurants().length);
   
-
-
   self.searchString = ko.observable("");
 
   self.filteredRestaurants = ko.computed(function() {
@@ -106,21 +107,26 @@ var ViewModel = function() {
       // console.log("index = " + index);
       // console.log("array()[index] = " + array()[index]);
       // console.log("searchString = " + self.searchString);
-      if (self.searchString == "" || array()[index].name.toLowerCase().includes(self.searchString().toLowerCase())) {
+      if (self.searchString == "" || array()[index].name.toLowerCase().startsWith(self.searchString().toLowerCase())) {
         returnArray.push(array()[index]);
+        console.log("observableMarkersArray()[index] = " + observableMarkersArray()[index]);
+        if (observableMarkersArray()[index] != undefined) {
+          observableMarkersArray()[index].setVisible(true);
+
+        }
       }
       else {
-        self.markers()[index].setVisible = false;
+        if (observableMarkersArray()[index] != undefined) {
+          observableMarkersArray()[index].setVisible(false);
+        }
       }
+      // else {
+      //   observableMarkersArray()[index].setVisible = false;
+      // }
     }
     console.log ("returnArray.legnth = " + returnArray.length);
     return returnArray;
   });
-
-
-  // console.log("self.restaurants = ");
-  // console.log(self.restaurants());
-
 
 };
   
