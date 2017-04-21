@@ -1,5 +1,6 @@
 // Initialize map and infoWindow
 var map;
+var markers = [];
 
 // MODEL
 var model = {
@@ -41,11 +42,32 @@ var model = {
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
-      lat: 34.0736,
-      lng: -118.4004
+      lat: 34.053477,
+      lng: -118.242893
     },
-    zoom: 12
+    zoom: 11
   });
+
+  console.log ("model.restaurants.length = " + model.restaurants.length);
+  
+  for (var i = 0; i < model.restaurants.length; i++) {
+    r = model.restaurants[i];
+    console.log("r.lat = " + r.lat);
+
+    var myLatLng = {lat: r.lat, lng: r.lng};
+    var lat = r.lat;
+
+    var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: 'Hello World!'
+    });
+
+    markers.push(marker);
+
+  }
+  console.log("markers.length = " + markers.length);
+  
 };
 
 
@@ -54,11 +76,19 @@ function initMap() {
 // VIEWMODEL
 var ViewModel = function() {
 
+
+
   var self = this;
+
+  
+
   console.log("model.restaurants.length = " + model.restaurants.length);
   self.restaurants = ko.observableArray(model.restaurants);
+  self.markers = ko.observableArray(markers);
   console.log("self.restaurants().length = " + self.restaurants().length);
   
+
+
   self.searchString = ko.observable("");
 
   self.filteredRestaurants = ko.computed(function() {
