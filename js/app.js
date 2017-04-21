@@ -57,6 +57,8 @@ function initMap() {
     var myLatLng = {lat: r.lat, lng: r.lng};
     var lat = r.lat;
 
+    
+
     var marker = new google.maps.Marker({
       position: myLatLng,
       // map: map,
@@ -64,13 +66,38 @@ function initMap() {
       visible: true
     });
 
+    
+
     observableMarkersArray().push(marker);
+
+    marker = null;
     // marker.setMap(null);
 
   }
 
   for (var i = 0; i < observableMarkersArray().length; i++){
-    observableMarkersArray()[i].setMap(map);
+    var marker = observableMarkersArray()[i];
+    marker.setMap(map);
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var content = "Name: " + model.restaurants[i].name
+
+    // google.maps.event.addListener(marker, 'click', function() {
+    //   if (infowindow) {
+    //       infowindow.close();
+    //   }
+    //   infowindow = new google.maps.InfoWindow();
+    //   infowindow.setContent(content);
+    //   infowindow.open(map,marker);
+    // });
+
+    google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+      return function() {
+         infowindow.setContent(content);
+         infowindow.open(map,marker);
+      };
+    })(marker,content,infowindow));
   }
 
 
