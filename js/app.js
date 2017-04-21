@@ -1,6 +1,7 @@
 // Initialize map and infoWindow
 var map;
-var observableMarkersArray = ko.observableArray(); 
+var observableMarkersArray = ko.observableArray();
+var infowindows = [];
 
 // MODEL
 var model = {
@@ -79,7 +80,11 @@ function initMap() {
     var marker = observableMarkersArray()[i];
     marker.setMap(map);
 
+
+
     var infowindow = new google.maps.InfoWindow();
+
+    infowindows.push(infowindow);
 
     var content = "Name: " + model.restaurants[i].name
 
@@ -94,6 +99,9 @@ function initMap() {
 
     google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
       return function() {
+         for (var i = 0; i < infowindows.length; i++) {
+            infowindows[i].close();
+         }
          infowindow.setContent(content);
          infowindow.open(map,marker);
       };
