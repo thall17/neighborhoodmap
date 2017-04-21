@@ -59,8 +59,9 @@ function initMap() {
 
     var marker = new google.maps.Marker({
       position: myLatLng,
-      map: map,
-      title: 'Hello World!'
+      // map: map,
+      title: r.name,
+      visible: true
     });
 
     markers.push(marker);
@@ -85,6 +86,7 @@ var ViewModel = function() {
   console.log("model.restaurants.length = " + model.restaurants.length);
   self.restaurants = ko.observableArray(model.restaurants);
   self.markers = ko.observableArray(markers);
+
   console.log("self.restaurants().length = " + self.restaurants().length);
   
 
@@ -106,6 +108,9 @@ var ViewModel = function() {
       // console.log("searchString = " + self.searchString);
       if (self.searchString == "" || array()[index].name.toLowerCase().includes(self.searchString().toLowerCase())) {
         returnArray.push(array()[index]);
+      }
+      else {
+        self.markers()[index].setVisible = false;
       }
     }
     console.log ("returnArray.legnth = " + returnArray.length);
