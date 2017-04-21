@@ -53,15 +53,37 @@ function initMap() {
 var ViewModel = function() {
 
   var self = this;
+  console.log("model.restaurants.length = " + model.restaurants.length);
   self.restaurants = ko.observableArray(model.restaurants);
-  self.filteredRestaurants = self.restaurants;
+  console.log("self.restaurants().length = " + self.restaurants().length);
+  
+  self.searchString = ko.observable("");
 
-  console.log("self.restaurants = ");
-  console.log(self.restaurants());
+  self.filteredRestaurants = ko.computed(function() {
+    array = self.restaurants;
+    returnArray = [];
+    var index;
+    // console.log("BEFORE FOR");
+    // console.log("self.restaurants().length = " + self.restaurants().length);
+    // console.log("array().length = " + array().length);
 
-  this.searchRestaurants = function() {
-    
-  }
+    for (index = 0; index < array().length; index++) {
+      // console.log("INSIDE FOR");
+      // console.log("index = " + index);
+      // console.log("array()[index] = " + array()[index]);
+      // console.log("searchString = " + self.searchString);
+      if (self.searchString == "" || array()[index].name.toLowerCase().includes(self.searchString())) {
+        returnArray.push(array()[index]);
+      }
+    }
+    console.log ("returnArray.legnth = " + returnArray.length);
+    return returnArray;
+  });
+
+
+  // console.log("self.restaurants = ");
+  // console.log(self.restaurants());
+
 
 };
   
