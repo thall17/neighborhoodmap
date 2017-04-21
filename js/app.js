@@ -153,6 +153,7 @@ var ViewModel = function() {
       else {
         if (observableMarkersArray()[index] != undefined) {
           observableMarkersArray()[index].setVisible(false);
+          infowindows[index].close();
         }
       }
       // else {
