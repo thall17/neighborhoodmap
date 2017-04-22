@@ -138,7 +138,11 @@ function initMap() {
 
            
 
-         })
+         }).fail(function(e) { 
+           $('#formatted-address').append("Unable to retrieve address from Foursquare.");
+           $('#checkins-count').append("Unable to retrieve checkins count from Foursquare.");
+           $('#tip-count').append("Unable to retrieve tip count from Foursquare."); 
+         });
 
          infowindow.open(map,marker);
 
