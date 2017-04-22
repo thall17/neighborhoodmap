@@ -57,6 +57,7 @@ var model = {
 // Initialize Google Map
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
+    // Center on City Hall in Los Angeles
     center: {
       lat: 34.053477,
       lng: -118.242893
@@ -64,28 +65,27 @@ function initMap() {
     zoom: 11
   });
 
-  console.log ("model.restaurants.length = " + model.restaurants.length);
-  
+  // Initialize markers
   for (var i = 0; i < model.restaurants.length; i++) {
     r = model.restaurants[i];
-    console.log("r.lat = " + r.lat);
 
     var myLatLng = {lat: r.lat, lng: r.lng};
     var lat = r.lat;
 
     var marker = new google.maps.Marker({
       position: myLatLng,
-      // map: map,
       title: r.name,
       visible: true
     });
 
+    // Make markers observable and therefore filterable in UI list
     observableMarkersArray().push(marker);
 
     marker = null;
 
   }
 
+  // Open infoWindow and fill with content
   for (var i = 0; i < observableMarkersArray().length; i++){
     var marker = observableMarkersArray()[i];
     marker.setMap(map);
@@ -109,6 +109,7 @@ function initMap() {
             'Foursquare Page</a> '+
             '</div>'
 
+    // Animate marker on click and open infoWindow
     google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
       return function() {
          for (var i = 0; i < infowindows.length; i++) {
@@ -120,12 +121,8 @@ function initMap() {
          }
 
          var index = observableMarkersArray.indexOf(marker);
-         console.log("index = " + index);
-
-
 
          var foursquareUrl = baseUrl + endpoint + paramsll + model.restaurants[index].lat + "," + model.restaurants[index].lng + paramsName + model.restaurants[index].name.split(' ').join('+') + paramsLimit + paramsVersion + paramsMode + clientID + clientSecret;
-         console.log("foursquareUrl = " + foursquareUrl);
          
          infowindow.setContent(content);
 
@@ -140,7 +137,6 @@ function initMap() {
            $('#tip-count').append(venueTipCount);
 
            
-           console.log("venueFormattedAddress = " + venueFormattedAddress);
 
          })
 
@@ -156,7 +152,6 @@ function initMap() {
       };
     })(marker,content,infowindow));
   }
-  console.log("observableMarkersArray().length = " + observableMarkersArray().length);
 };
 
 
@@ -165,24 +160,22 @@ var ViewModel = function() {
 
   var self = this;
 
+  // Allow user to choose a specific restaurant by clicking on it in the side-menu list
   self.isolateLocation = function(restaurant) {
-    console.log("IN ISOLATELOCATION");
     self.searchString(restaurant.name);
-    console.log("self.searchString = " + self.searchString);
     self.filteredRestaurants;
   };
 
+  // Clear the search string (and show all locations) when user clicks the "X" button
   self.clearSearch = function() {
     self.searchString("");
   }
 
-  console.log("model.restaurants.length = " + model.restaurants.length);
   self.observableMarkersArray = ko.observableArray(model.restaurants);
-
-  console.log("self.restaurants().length = " + self.observableMarkersArray().length);
   
   self.searchString = ko.observable("");
 
+  // Filter restaurant list and markers on map based on searchString input from user
   self.filteredRestaurants = ko.computed(function() {
     array = self.observableMarkersArray;
     returnArray = [];
@@ -192,7 +185,6 @@ var ViewModel = function() {
 
       if (self.searchString == "" || array()[index].name.toLowerCase().startsWith(self.searchString().toLowerCase())) {
         returnArray.push(array()[index]);
-        console.log("observableMarkersArray()[index] = " + observableMarkersArray()[index]);
         if (observableMarkersArray()[index] != undefined) {
           observableMarkersArray()[index].setVisible(true);
 
@@ -205,9 +197,9 @@ var ViewModel = function() {
         }
       }
     }
-    console.log ("returnArray.legnth = " + returnArray.length);
     return returnArray;
   });
 };
   
+// Bind everything with KnockoutJS
 ko.applyBindings(new ViewModel());
