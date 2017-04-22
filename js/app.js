@@ -117,12 +117,11 @@ function initMap() {
             '<p><b>Address: </b>' +
             '<span id="formatted-address"></span></p>' +
             '<p><b>Checkins: </b>' +
-            '<span id="formatted-address"></span></p>' +
+            '<span id="checkins-count"></span></p>' +
             '<p><b>Tips: </b>' +
-            '<span id="formatted-address"></span></p>' +
+            '<span id="tip-count"></span></p>' +
             '<p><a href="' + model.restaurants[i].foursquareLink + '">'+
             'Foursquare Page</a> '+
-            '</div>'+
             '</div>'
 
     // var content = '<div id="formatted-address"></div>';
@@ -145,10 +144,10 @@ function initMap() {
             observableMarkersArray()[i].setAnimation(null);
 
          }
-         // var $venue = $('#venue');
-         var $formattedAddress = $('#formatted-address');
-         var $checkinsCount = $('#checkins-count');
-         var $tipCount = $('#tip-count');
+         // // var $venue = $('#venue');
+         // var $formattedAddress = $('#formatted-address');
+         // var $checkinsCount = $('#checkins-count');
+         // var $tipCount = $('#tip-count');
 
          
          infowindow.setContent(content);
@@ -156,10 +155,14 @@ function initMap() {
          $.getJSON(foursquareUrl, function(data) {
            var venue = data.response.venues[0];
            var venueFormattedAddress = venue.location.formattedAddress;
-           $('#formatted-address').append(venueFormattedAddress);
-
            var venueCheckinsCount = venue.stats.checkinsCount;
            var venueTipCount = venue.stats.tipCount;
+
+           $('#formatted-address').append(venueFormattedAddress);
+           $('#checkins-count').append(venueCheckinsCount);
+           $('#tip-count').append(venueTipCount);
+
+           
            console.log("venueFormattedAddress = " + venueFormattedAddress);
 
          })
@@ -169,6 +172,7 @@ function initMap() {
          if (marker.getAnimation() !== null) {
            marker.setAnimation(null);
          } else {
+           map.panTo(marker.getPosition());
            marker.setAnimation(google.maps.Animation.BOUNCE);
            setTimeout(function(){ marker.setAnimation(null); }, 750);
          }
