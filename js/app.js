@@ -144,23 +144,32 @@ function initMap() {
 };
 
 
-
-
 // VIEWMODEL
 var ViewModel = function() {
 
   var self = this;
 
+  self.isolateLocation = function(restaurant) {
+    console.log("IN ISOLATELOCATION");
+    self.searchString(restaurant.name);
+    console.log("self.searchString = " + self.searchString);
+    self.filteredRestaurants;
+  };
+
+  self.clearSearch = function() {
+    self.searchString("");
+  }
+
   console.log("model.restaurants.length = " + model.restaurants.length);
-  self.restaurants = ko.observableArray(model.restaurants);
+  self.observableMarkersArray = ko.observableArray(model.restaurants);
   // self.markers = ko.observableArray(markers);
 
-  console.log("self.restaurants().length = " + self.restaurants().length);
+  console.log("self.restaurants().length = " + self.observableMarkersArray().length);
   
   self.searchString = ko.observable("");
 
   self.filteredRestaurants = ko.computed(function() {
-    array = self.restaurants;
+    array = self.observableMarkersArray;
     returnArray = [];
     var index;
     // console.log("BEFORE FOR");
@@ -193,6 +202,8 @@ var ViewModel = function() {
     console.log ("returnArray.legnth = " + returnArray.length);
     return returnArray;
   });
+
+  
 
 };
   

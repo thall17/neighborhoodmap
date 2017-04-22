@@ -79,19 +79,20 @@
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search..." data-bind="textInput: searchString">
-                                <!-- <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" id="search-btn">
-                                    <i class="fa fa-search"></i>
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-bind="click: clearSearch" id="search-btn">
+                                    <i class="fa fa-close"></i>
                                 </button>
-                            </span> -->
+                                </span>
                             </div>
                             <!-- /input-group -->
                         </li>
                     </ul>
                     <ul class="nav" data-bind="foreach: filteredRestaurants">
                         <li>       
-                            <a href="#" data-bind="text: name"></a>  
-                       </li>
+                            <a href="#" data-bind="text: name, click: $parent.isolateLocation"></a>  
+<!--                             <button data-bind="click: $parent.isolateLocation">Click here</button>
+ -->                       </li>
                     </ul>
                     
                 </div>
