@@ -11,3 +11,5 @@ This project is for the Udacity Frontend Nanodegree program. I chose to display 
 * KnockoutJS - [documentation](http://knockoutjs.com/)
 * Google Maps API - [documentation](https://developers.google.com/maps/)
 * Foursquare API - [documentation](https://developer.foursquare.com/)
+* Bootstrap - [documentation](http://getbootstrap.com/)
+* SB Admin 2 CSS Bootstrap Template - [documentation](https://startbootstrap.com/template-overviews/sb-admin-2/)
