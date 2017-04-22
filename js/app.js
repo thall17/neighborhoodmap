@@ -20,31 +20,36 @@ var model = {
       name: "Angelini Osteria",
       address: '7313 Beverly Blvd, Los Angeles, CA 90036',
       lat: 34.076448,
-      lng: -118.349148
+      lng: -118.349148,
+      foursquareLink: "https://foursquare.com/v/angelini-osteria/4a8e0dd4f964a520e81120e3"
     },
     {
       name: "Cassia",
       address: '1314 7th St, Santa Monica, CA 90401',
       lat: 34.019401,
-      lng: -118.493702
+      lng: -118.493702,
+      foursquareLink: "https://foursquare.com/v/cassia/5580cfe3498eb8ba1ca0874a"
     },
     {
       name: "Katsu-ya",
       address: '11680 Ventura Blvd, Studio City, CA 91604',
       lat: 34.140803,
-      lng: -118.387423
+      lng: -118.387423,
+      foursquareLink: "https://foursquare.com/v/katsuya/4a91cac7f964a520d61b20e3"
     },
     {
       name: "Kotoya",
       address: '10422 National Blvd, Los Angeles, CA 90034',
       lat: 34.028577,
-      lng: -118.411518
+      lng: -118.411518,
+      foursquareLink: "https://foursquare.com/v/kotoya-ramen/56d07b67cd10ad699abcc4fc"
     },
     {
       name: "Mastro's Steakhouse",
       address: '246 N Canon Dr, Beverly Hills, CA 90210',
       lat: 34.068829,
-      lng: -118.398821
+      lng: -118.398821,
+      foursquareLink: "https://foursquare.com/v/mastros-steakhouse/43a9ae96f964a5207e2c1fe3"
     }
 
   ]
@@ -100,28 +105,42 @@ function initMap() {
 
     console.log("foursquareUrl = " + foursquareUrl);
 
-    var content = "";
+    var venue, venueFormattedAddress, venueCheckinsCount, venueTipCount; 
 
-    // var content = '<div id="content">'+
-    //         '<div id="siteNotice">'+
-    //         '</div>'+
-    //         '<h1 id="firstHeading" class="firstHeading">' + model.restaurants[i].name + '</h1>'+
-    //         '<div id="bodyContent">'+
-    //         '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-    //         'sandstone rock formation in the southern part of the '+
-    //         'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-    //         'south west of the nearest large town, Alice Springs; 450&#160;km '+
-    //         '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-    //         'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-    //         'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-    //         'Aboriginal people of the area. It has many springs, waterholes, '+
-    //         'rock caves and ancient paintings. Uluru is listed as a World '+
-    //         'Heritage Site.</p>'+
-    //         '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-    //         'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-    //         '(last visited June 22, 2009).</p>'+
-    //         '</div>'+
-    //         '</div>'
+    $.getJSON(foursquareUrl, function(data) {
+      venue = data.response.venues[0];
+      venueFormattedAddress = venue.location.formattedAddress;
+      venueCheckinsCount = venue.stats.checkinsCount;
+      console.log("venueCheckinsCount = " + venueCheckinsCount);
+      venueTipCount = venue.stats.tipCount;
+      console.log("venueFormattedAddress = " + venueFormattedAddress);
+
+    })
+
+    console.log("**********venueCheckinsCount = " + venueCheckinsCount);
+
+    // var content = "";
+
+    var content = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">' + model.restaurants[i].name + '</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Foursquare Checkins:</b>, ' + venueFormattedAddress + '</p>also referred to as <b>Ayers Rock</b>, is a large ' +
+            'sandstone rock formation in the southern part of the '+
+            'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+            'south west of the nearest large town, Alice Springs; 450&#160;km '+
+            '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+            'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+            'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+            'Aboriginal people of the area. It has many springs, waterholes, '+
+            'rock caves and ancient paintings. Uluru is listed as a World '+
+            'Heritage Site.</p>'+
+            '<a href="' + model.restaurants[i].foursquareLink + '"' +
+            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+            'Visit Foursquare Page</p>'+
+            '</div>'+
+            '</div>'
 
     // google.maps.event.addListener(marker, 'click', function() {
     //   if (infowindow) {
