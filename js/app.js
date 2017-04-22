@@ -3,6 +3,16 @@ var map;
 var observableMarkersArray = ko.observableArray();
 var infowindows = [];
 
+var baseUrl = "https://api.foursquare.com/v2/";
+var endpoint = "venues/search?"
+var clientID = "&client_id=WEBC1WESOQN4A3VWY5VNA54NU4NIJ00QJGLLBAD0XXKFI150";
+var clientSecret = "&client_secret=MMPCAP1UKMSZFKK3Z3N5HJXNC4DKU2FQWIMHZRRBWS50U1TL";
+var paramsll = "ll=";
+var paramsName = "&name=";
+var paramsLimit = "&limit=1";
+var paramsVersion = "&v=20170421";
+var paramsMode = "&m=foursquare";
+
 // MODEL
 var model = {
   restaurants: [
@@ -86,26 +96,32 @@ function initMap() {
 
     infowindows.push(infowindow);
 
-    var content = '<div id="content">'+
-            '<div id="siteNotice">'+
-            '</div>'+
-            '<h1 id="firstHeading" class="firstHeading">' + model.restaurants[i].name + '</h1>'+
-            '<div id="bodyContent">'+
-            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-            'sandstone rock formation in the southern part of the '+
-            'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-            'south west of the nearest large town, Alice Springs; 450&#160;km '+
-            '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-            'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-            'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-            'Aboriginal people of the area. It has many springs, waterholes, '+
-            'rock caves and ancient paintings. Uluru is listed as a World '+
-            'Heritage Site.</p>'+
-            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-            '(last visited June 22, 2009).</p>'+
-            '</div>'+
-            '</div>'
+    var foursquareUrl = baseUrl + endpoint + paramsll + model.restaurants[i].lat + "," + model.restaurants[i].lng + paramsName + model.restaurants[i].name.split(' ').join('+') + paramsLimit + paramsVersion + paramsMode + clientID + clientSecret;
+
+    console.log("foursquareUrl = " + foursquareUrl);
+
+    var content = "";
+
+    // var content = '<div id="content">'+
+    //         '<div id="siteNotice">'+
+    //         '</div>'+
+    //         '<h1 id="firstHeading" class="firstHeading">' + model.restaurants[i].name + '</h1>'+
+    //         '<div id="bodyContent">'+
+    //         '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+    //         'sandstone rock formation in the southern part of the '+
+    //         'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+    //         'south west of the nearest large town, Alice Springs; 450&#160;km '+
+    //         '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+    //         'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+    //         'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+    //         'Aboriginal people of the area. It has many springs, waterholes, '+
+    //         'rock caves and ancient paintings. Uluru is listed as a World '+
+    //         'Heritage Site.</p>'+
+    //         '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+    //         'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+    //         '(last visited June 22, 2009).</p>'+
+    //         '</div>'+
+    //         '</div>'
 
     // google.maps.event.addListener(marker, 'click', function() {
     //   if (infowindow) {
@@ -149,6 +165,8 @@ var ViewModel = function() {
 
   var self = this;
 
+
+
   self.isolateLocation = function(restaurant) {
     console.log("IN ISOLATELOCATION");
     self.searchString(restaurant.name);
@@ -160,13 +178,7 @@ var ViewModel = function() {
     self.searchString("");
   }
 
-  var baseUrl = "https://api.foursquare.com/v2/";
-  var endPoint = "venues/search?"
-  var clientID = "client_id=WEBC1WESOQN4A3VWY5VNA54NU4NIJ00QJGLLBAD0XXKFI150";
-  var clientSecret = "&client_secret=MMPCAP1UKMSZFKK3Z3N5HJXNC4DKU2FQWIMHZRRBWS50U1TL";
-  var paramsll = "ll=";
-  var paramsName = "&name=";
-  var paramsLimit = "&limit=1";
+
 
   console.log("model.restaurants.length = " + model.restaurants.length);
   self.observableMarkersArray = ko.observableArray(model.restaurants);
