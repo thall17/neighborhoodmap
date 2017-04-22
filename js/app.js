@@ -121,8 +121,19 @@ function initMap() {
          for (var i = 0; i < infowindows.length; i++) {
             infowindows[i].close();
          }
+         for (var i = 0; i < observableMarkersArray().length; i++) {
+            observableMarkersArray()[i].setAnimation(null);
+
+         }
          infowindow.setContent(content);
          infowindow.open(map,marker);
+
+         if (marker.getAnimation() !== null) {
+           marker.setAnimation(null);
+         } else {
+           marker.setAnimation(google.maps.Animation.BOUNCE);
+           setTimeout(function(){ marker.setAnimation(null); }, 750);
+         }
       };
     })(marker,content,infowindow));
   }
