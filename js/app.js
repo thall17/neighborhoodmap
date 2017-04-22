@@ -105,19 +105,14 @@ function initMap() {
 
     console.log("foursquareUrl = " + foursquareUrl);
 
-    var venue, venueFormattedAddress, venueCheckinsCount, venueTipCount; 
-
     $.getJSON(foursquareUrl, function(data) {
-      venue = data.response.venues[0];
-      venueFormattedAddress = venue.location.formattedAddress;
-      venueCheckinsCount = venue.stats.checkinsCount;
-      console.log("venueCheckinsCount = " + venueCheckinsCount);
-      venueTipCount = venue.stats.tipCount;
+      var venue = data.response.venues[0];
+      var venueFormattedAddress = venue.location.formattedAddress;
+      var venueCheckinsCount = venue.stats.checkinsCount;
+      var venueTipCount = venue.stats.tipCount;
       console.log("venueFormattedAddress = " + venueFormattedAddress);
 
     })
-
-    console.log("**********venueCheckinsCount = " + venueCheckinsCount);
 
     // var content = "";
 
@@ -126,7 +121,7 @@ function initMap() {
             '</div>'+
             '<h1 id="firstHeading" class="firstHeading">' + model.restaurants[i].name + '</h1>'+
             '<div id="bodyContent">'+
-            '<p><b>Foursquare Checkins:</b>, ' + venueFormattedAddress + '</p>also referred to as <b>Ayers Rock</b>, is a large ' +
+            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
             'sandstone rock formation in the southern part of the '+
             'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
             'south west of the nearest large town, Alice Springs; 450&#160;km '+
@@ -136,9 +131,9 @@ function initMap() {
             'Aboriginal people of the area. It has many springs, waterholes, '+
             'rock caves and ancient paintings. Uluru is listed as a World '+
             'Heritage Site.</p>'+
-            '<a href="' + model.restaurants[i].foursquareLink + '"' +
+            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
             'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-            'Visit Foursquare Page</p>'+
+            '(last visited June 22, 2009).</p>'+
             '</div>'+
             '</div>'
 
