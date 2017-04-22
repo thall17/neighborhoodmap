@@ -101,9 +101,9 @@ function initMap() {
 
     infowindows.push(infowindow);
 
-    var foursquareUrl = baseUrl + endpoint + paramsll + model.restaurants[i].lat + "," + model.restaurants[i].lng + paramsName + model.restaurants[i].name.split(' ').join('+') + paramsLimit + paramsVersion + paramsMode + clientID + clientSecret;
+    
 
-    console.log("foursquareUrl = " + foursquareUrl);
+    
 
 
 
@@ -149,6 +149,13 @@ function initMap() {
          // var $checkinsCount = $('#checkins-count');
          // var $tipCount = $('#tip-count');
 
+         var index = observableMarkersArray.indexOf(marker);
+         console.log("index = " + index);
+
+
+
+         var foursquareUrl = baseUrl + endpoint + paramsll + model.restaurants[index].lat + "," + model.restaurants[index].lng + paramsName + model.restaurants[index].name.split(' ').join('+') + paramsLimit + paramsVersion + paramsMode + clientID + clientSecret;
+         console.log("foursquareUrl = " + foursquareUrl);
          
          infowindow.setContent(content);
 
