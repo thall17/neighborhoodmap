@@ -1,8 +1,7 @@
-// Initialize map and infoWindow
+// Initialize global variables
 var map;
 var observableMarkersArray = ko.observableArray();
 var infowindows = [];
-
 var baseUrl = "https://api.foursquare.com/v2/";
 var endpoint = "venues/search?"
 var clientID = "&client_id=WEBC1WESOQN4A3VWY5VNA54NU4NIJ00QJGLLBAD0XXKFI150";
@@ -55,6 +54,7 @@ var model = {
   ]
 };
 
+// Initialize Google Map
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
@@ -73,8 +73,6 @@ function initMap() {
     var myLatLng = {lat: r.lat, lng: r.lng};
     var lat = r.lat;
 
-    
-
     var marker = new google.maps.Marker({
       position: myLatLng,
       // map: map,
@@ -82,12 +80,9 @@ function initMap() {
       visible: true
     });
 
-    
-
     observableMarkersArray().push(marker);
 
     marker = null;
-    // marker.setMap(null);
 
   }
 
@@ -95,19 +90,9 @@ function initMap() {
     var marker = observableMarkersArray()[i];
     marker.setMap(map);
 
-
-
     var infowindow = new google.maps.InfoWindow();
 
     infowindows.push(infowindow);
-
-    
-
-    
-
-
-
-    // var content = "";
 
     var content = '<div id="content">'+
             '<div id="siteNotice">'+
@@ -124,17 +109,6 @@ function initMap() {
             'Foursquare Page</a> '+
             '</div>'
 
-    // var content = '<div id="formatted-address"></div>';
-
-    // google.maps.event.addListener(marker, 'click', function() {
-    //   if (infowindow) {
-    //       infowindow.close();
-    //   }
-    //   infowindow = new google.maps.InfoWindow();
-    //   infowindow.setContent(content);
-    //   infowindow.open(map,marker);
-    // });
-
     google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
       return function() {
          for (var i = 0; i < infowindows.length; i++) {
@@ -144,10 +118,6 @@ function initMap() {
             observableMarkersArray()[i].setAnimation(null);
 
          }
-         // // var $venue = $('#venue');
-         // var $formattedAddress = $('#formatted-address');
-         // var $checkinsCount = $('#checkins-count');
-         // var $tipCount = $('#tip-count');
 
          var index = observableMarkersArray.indexOf(marker);
          console.log("index = " + index);
@@ -186,10 +156,7 @@ function initMap() {
       };
     })(marker,content,infowindow));
   }
-
-
   console.log("observableMarkersArray().length = " + observableMarkersArray().length);
-  
 };
 
 
@@ -197,8 +164,6 @@ function initMap() {
 var ViewModel = function() {
 
   var self = this;
-
-
 
   self.isolateLocation = function(restaurant) {
     console.log("IN ISOLATELOCATION");
@@ -211,11 +176,8 @@ var ViewModel = function() {
     self.searchString("");
   }
 
-
-
   console.log("model.restaurants.length = " + model.restaurants.length);
   self.observableMarkersArray = ko.observableArray(model.restaurants);
-  // self.markers = ko.observableArray(markers);
 
   console.log("self.restaurants().length = " + self.observableMarkersArray().length);
   
@@ -225,15 +187,9 @@ var ViewModel = function() {
     array = self.observableMarkersArray;
     returnArray = [];
     var index;
-    // console.log("BEFORE FOR");
-    // console.log("self.restaurants().length = " + self.restaurants().length);
-    // console.log("array().length = " + array().length);
 
     for (index = 0; index < array().length; index++) {
-      // console.log("INSIDE FOR");
-      // console.log("index = " + index);
-      // console.log("array()[index] = " + array()[index]);
-      // console.log("searchString = " + self.searchString);
+
       if (self.searchString == "" || array()[index].name.toLowerCase().startsWith(self.searchString().toLowerCase())) {
         returnArray.push(array()[index]);
         console.log("observableMarkersArray()[index] = " + observableMarkersArray()[index]);
@@ -248,16 +204,10 @@ var ViewModel = function() {
           infowindows[index].close();
         }
       }
-      // else {
-      //   observableMarkersArray()[index].setVisible = false;
-      // }
     }
     console.log ("returnArray.legnth = " + returnArray.length);
     return returnArray;
   });
-
-  
-
 };
   
 ko.applyBindings(new ViewModel());
