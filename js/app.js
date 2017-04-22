@@ -160,6 +160,14 @@ var ViewModel = function() {
     self.searchString("");
   }
 
+  var baseUrl = "https://api.foursquare.com/v2/";
+  var endPoint = "venues/search?"
+  var clientID = "client_id=WEBC1WESOQN4A3VWY5VNA54NU4NIJ00QJGLLBAD0XXKFI150";
+  var clientSecret = "&client_secret=MMPCAP1UKMSZFKK3Z3N5HJXNC4DKU2FQWIMHZRRBWS50U1TL";
+  var paramsll = "ll=";
+  var paramsName = "&name=";
+  var paramsLimit = "&limit=1";
+
   console.log("model.restaurants.length = " + model.restaurants.length);
   self.observableMarkersArray = ko.observableArray(model.restaurants);
   // self.markers = ko.observableArray(markers);
