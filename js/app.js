@@ -69,8 +69,8 @@ function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     // Center on City Hall in Los Angeles
     center: {
-      lat: 34.053477,
-      lng: -118.242893
+      lat: 34.068829,
+      lng: -118.398821
     },
     zoom: 11
   });
