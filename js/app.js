@@ -28,6 +28,13 @@ var model = {
       foursquareLink: "https://foursquare.com/v/cassia/5580cfe3498eb8ba1ca0874a"
     },
     {
+      name: "In-N-Out",
+      address: '9245 Venice Blvd, Los Angeles, CA 90034',
+      lat: 34.026445,
+      lng: -118.394276,
+      foursquareLink: "https://foursquare.com/v/innout-burger/4a9a37a5f964a520a63120e3"
+    },
+    {
       name: "Katsu-ya",
       address: '11680 Ventura Blvd, Studio City, CA 91604',
       lat: 34.140803,
@@ -47,6 +54,13 @@ var model = {
       lat: 34.068829,
       lng: -118.398821,
       foursquareLink: "https://foursquare.com/v/mastros-steakhouse/43a9ae96f964a5207e2c1fe3"
+    },
+    {
+      name: "Taco Bell",
+      address: '2628 Robertson Blvd, Los Angeles, CA 90034',
+      lat: 34.037475,
+      lng: -118.388372,
+      foursquareLink: "https://foursquare.com/v/taco-bell/4b4018a6f964a52088b525e3"
     }
   ]
 };
